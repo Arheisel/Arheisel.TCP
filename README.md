@@ -20,30 +20,30 @@ private void WebServer_ClientConnected(object sender, ClientConnectedArgs e)
 ## Reference
 This library also includes the `TCPTools` Static Class. It has matching function for sending and receiving Data.
 
-#### T[] TCPTools.Concat<T>(this T[] x, T[] y)
+#### `T[] TCPTools.Concat<T>(this T[] x, T[] y)`
 
 Extension Function
 
 Returns an Array<T> with the `y` array concatenated at the end
 
-#### T[] TCPTools.Splice<T>(this T[] array, int startIndex, int length)
+#### `T[] TCPTools.Splice<T>(this T[] array, int startIndex, int length)`
 Extension Function
 
 Returns an Array<T> with `length` ammount of elements starting at `startIndex`
 
-#### void TCPTools.Send(TcpClient client, byte[] data)
+#### `void TCPTools.Send(TcpClient client, byte[] data)`
 
 Sends a byte array. Received with `byte[] TCPTools.Receive(TcpClient client)`
 
-#### void TCPTools.SendString(TcpClient client, string str)
+#### `void TCPTools.SendString(TcpClient client, string str)`
 
 Sends a string. Received with `string TCPTools.ReceiveString(TcpClient client)`
 
-#### void TCPTools.SendObject<T>(TcpClient client, T obj)
+#### `void TCPTools.SendObject<T>(TcpClient client, T obj)`
 
 Sends an instance of object T (via JsonConvert). Received with `T TCPTools.ReceiveObject<T>(TcpClient client)`
 
-#### void TCPTools.SendACK(TcpClient client)
+#### `void TCPTools.SendACK(TcpClient client)`
 
 Not Recommended. Sends an "ACK" string. Received with `bool TCPTools.ReceiveACK(TcpClient client)`
 
