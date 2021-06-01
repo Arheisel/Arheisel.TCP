@@ -17,7 +17,35 @@ private void WebServer_ClientConnected(object sender, ClientConnectedArgs e)
 }
 ```
 
-The library also includes the `TCPTools` Class. It has matching function for sending and receiving Data.
+## Reference
+This library also includes the `TCPTools` Static Class. It has matching function for sending and receiving Data.
+
+#### T[] TCPTools.Concat<T>(this T[] x, T[] y)
+
+Extension Function
+
+Returns an Array<T> with the `y` array concatenated at the end
+
+#### T[] TCPTools.Splice<T>(this T[] array, int startIndex, int length)
+Extension Function
+
+Returns an Array<T> with `length` ammount of elements starting at `startIndex`
+
+#### void TCPTools.Send(TcpClient client, byte[] data)
+
+Sends a byte array. Received with `byte[] TCPTools.Receive(TcpClient client)`
+
+#### void TCPTools.SendString(TcpClient client, string str)
+
+Sends a string. Received with `string TCPTools.ReceiveString(TcpClient client)`
+
+#### void TCPTools.SendObject<T>(TcpClient client, T obj)
+
+Sends an instance of object T (via JsonConvert). Received with `T TCPTools.ReceiveObject<T>(TcpClient client)`
+
+#### void TCPTools.SendACK(TcpClient client)
+
+Not Recommended. Sends an "ACK" string. Received with `bool TCPTools.ReceiveACK(TcpClient client)`
 
 ## Example
 (More of a program I made to test the library)
@@ -53,15 +81,14 @@ class Program
         {
             if (ns.DataAvailable)
             {
-                //var smsg = TCPTools.ReceiveString(e.client);
-                var obj = TCPTools.ReceiveObject<List<NetStr>>(e.client);
+                var obj = TCPTools.ReceiveObject<NetStr>(e.client);
                 string smsg;
                 if(obj == null)
                 {
                     smsg = "NULL";
                 }
                 else
-                    smsg = obj[0].Str;
+                    smsg = obj.Str;
 
                 Console.WriteLine("Received: \"{0}\"", smsg); //now , we write the message as string
             }
@@ -130,15 +157,10 @@ class Program
                 var line = Console.ReadLine();
 
                 if (line == "close") break;
-                // Translate the passed message into ASCII and store it as a Byte array.
                 var obj = new NetStr(line);
-                var list = new List<NetStr>
-                {
-                    obj
-                };
-                //TCPTools.SendString(client, line);
-                if (line == "a")
-                    TCPTools.SendObject<List<NetStr>>(client, null);
+
+                if (line == "a")//'a' sends null as a test
+                    TCPTools.SendObject<NetStr>(client, null);
                 else
                     TCPTools.SendObject(client, list);
             }
