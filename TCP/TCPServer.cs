@@ -57,11 +57,11 @@ namespace Arheisel.TCP
 
     public class ClientConnectedArgs : EventArgs
     {
-        public TcpClient client { get; }
+        public TcpClient Client { get; }
 
         public ClientConnectedArgs(TcpClient _client)
         {
-            client = _client;
+            Client = _client;
         }
     }
 
